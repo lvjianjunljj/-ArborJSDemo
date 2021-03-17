@@ -1,6 +1,6 @@
 (function () {
 
-  Renderer = function (canvas) {
+  Renderer = function (canvas, _code) {
     var canvas = $(canvas).get(0)
     var ctx = canvas.getContext("2d");
     var gfx = arbor.Graphics(canvas)
@@ -135,13 +135,12 @@
             if (dragged.node !== null) dragged.node.fixed = true
 
             $(canvas).bind('mousemove', handler.dragged)
-            // alert(dragged.node.name)
             $(window).bind('mouseup', handler.dropped)
 
             return false
           },
           dragged: function (e) {
-            var old_nearest = nearest && nearest.node._id
+            // var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
             var s = arbor.Point(e.pageX - pos.left, e.pageY - pos.top)
 
@@ -156,7 +155,7 @@
           dropped: function (e) {
             if (dragged === null || dragged.node === undefined) return
             if (dragged.node !== null) dragged.node.fixed = false
-            alert(dragged.node.name)
+            _code.val(dragged.node.name).focus()
             dragged.node.tempMass = 50
             dragged = null
             selected = null

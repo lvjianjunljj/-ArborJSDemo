@@ -15,7 +15,7 @@
     var dom = $(elt)
 
     sys = arbor.ParticleSystem(2600, 512, 0.5)
-    sys.renderer = Renderer("#viewport") // our newly created renderer will have its .init() method called shortly by sys...
+    sys.renderer = Renderer("#viewport", dom.find('textarea')) // our newly created renderer will have its .init() method called shortly by sys...
     sys.screenPadding(20)
 
     var _ed = dom.find('#editor')
@@ -24,21 +24,7 @@
     var _grabber = dom.find('#grabber')
 
     var _updateTimeout = null
-    var _current = null // will be the id of the doc if it's been saved before
     var _editing = false // whether to undim the Save menu and prevent navigating away
-    var _failures = null
-
-    // $(_canvas).mousedown(function (e) {
-    //   var pos = $(this).offset();
-    //   var p = { x: e.pageX - pos.left, y: e.pageY - pos.top }
-    //   selected = particleSystem.nearest(p);
-    //   alert(1111)
-
-    //   if (selected.node !== null) {
-    //     dragged.node.tempMass = 50
-    //     dragged.node.fixed = true
-    //   }
-    // });
 
     var that = {
       dashboard: Dashboard("#dashboard", sys),
@@ -52,8 +38,7 @@
         _code.keydown(that.typing)
         _grabber.bind('mousedown', that.grabbed)
 
-        $(that.io).bind('get', that.getDoc)
-        $(that.io).bind('clear', that.newDoc)
+        $(that.io).bind('clear', that.showGraph)
         return that
       },
 
@@ -75,19 +60,28 @@
 
       },
 
-      newDoc: function () {
-        var lorem = "; some example nodes\nhello {color:red, label:HELLO}\nworld {color:orange}\n\n; some edges\nhello -> world {color:yellow}\nfoo -> bar {weight:5}\nbar -> baz {weight:2}"
+      showGraph: function () {
+        // var lorem = "; some example nodes\nhello {color:red, label:HELLO}\nworld {color:orange}\n\n; some edges\nhello -> world {color:yellow}\nfoo -> bar {weight:5}\nbar -> baz {weight:2}"
 
-        _code.val(lorem).focus()
-        $.address.value("")
+        // _code.val(lorem).focus()
+        // $.address.value("")
         that.updateGraph()
-        that.resize()
-        _editing = false
+        // that.resize()
+        // _editing = false
       },
 
       updateGraph: function (e) {
-        var src_txt = _code.val()
-        var network = parse(src_txt)
+        var lorem =
+          "; some example nodes\n" +
+          "hello {color:red, label:HELLO}\n" +
+          "world {color:orange}\n\n" +
+          "; some edges\nhello -> world {color:yellow}\n" +
+          "foo -> bar {weight:5}\n" +
+          "bar -> baz {weight:2}"
+
+        // var src_txt = _code.val()
+        // _code.val("1234").focus()
+        var network = parse(lorem)
         $.each(network.nodes, function (nname, ndata) {
           if (ndata.label === undefined) ndata.label = nname
         })
