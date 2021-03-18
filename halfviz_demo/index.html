@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>arbor.js » halfviz</title>
   <meta name="generator" content="TextMate http://macromates.com/">
-  <meta name="author" content="Christian Swinehart">
+  <meta name="author" content="Jianjun Lv">
   <!-- Date: 2010-12-20 -->
   <link rel="stylesheet" href="style/halfviz.css" type="text/css" charset="utf-8">
 </head>
@@ -30,10 +30,6 @@
   <div id="halfviz">
     <canvas id="viewport" width="800" height="600"></canvas>
     <div id="editor">
-      <div class="io">
-        <div class="ctrl"><a href="#" class="new">clear</a><a class="examples" href="#">examples <span></span></a></div>
-        <ul class="dialog"></ul>
-      </div>
       <textarea id="code"></textarea>
     </div>
     <div id="grabber"></div>
@@ -41,16 +37,46 @@
 
   <div id="dashboard">
     <a href="#" class="about">
-      <div class="popup"><img src="style/nub.png">About</div>about halfviz
+      <div class="popup"><img src="style/nub.png">About</div>
     </a>
     <ul class="controls">
       <li class="stiffness">spring tension <span class="frob">10,000</span></li>
       <li class="repulsion">node repulsion <span class="frob">10,000</span></li>
       <li class="friction">friction <span class="frob">20%</span></li>
       <li class="gravity">gravity <span class="toggle">.</span></li>
+      <li class="update">Data factory
+      </li>
+      <li class="datFactory">
+        <select name="city">
+          <option value="a">a</option>
+          <option value="b">b</option>
+          <option value="c">c</option>
+          <option value="d">d</option>
+          <option value="e">5</option>
+      </li>
+      <!-- <li class="update2"">
+        <link rel="stylesheet" type="text/css" href="style/formselects.css" />
+  
+        <div position:absoulte z-index:12>
+          <select name="city" xm-select="select1">
+            <option value="1" disabled="disabled">a</option>
+            <option value="2" selected="selected">b</option>
+            <option value="2" selected="selected">b</option>
+            <option value="2" selected="selected">b</option>
+            <option value="2" selected="selected">b</option>
+            <option value="3">c</option>
+            <option value="4" selected="selected">d</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+  
+  
+        <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="src/formselects.js"
+          type="text/javascript" charset="utf-8"></script>
+      </li> -->
     </ul>
   </div>
-
 
   <script src="../lib/jquery-1.6.1.min.js"></script>
   <script src="../lib/jquery.address-1.4.min.js"></script>

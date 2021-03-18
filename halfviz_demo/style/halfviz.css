@@ -65,6 +65,15 @@ body{
   left:800px;
 }
 
+#datafactory{
+  position:absolute;
+  background:#b3bcb0;
+  width:150px;
+  top:0px;
+  bottom:500px;
+  left:0px;
+}
+
 #grabber:hover{
   cursor:col-resize
 }
@@ -101,9 +110,6 @@ a.update{
   left:10px;
   width:88px;
   height:33px;
-  text-indent:-9999px;
-  vertical-align:bottom;
-  text-decoration:none;
   color:#666;
   font:10px/20px Arial, sans-serif;
   text-transform:uppercase;
@@ -208,6 +214,10 @@ a.update{
 }
 
 .toggle{
+  cursor:pointer;
+}
+
+.update{
   cursor:pointer;
 }
 

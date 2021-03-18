@@ -9,7 +9,6 @@
   trace = arbor.etc.trace
   objmerge = arbor.etc.objmerge
   objcopy = arbor.etc.objcopy
-  var parse = Parseur().parse
 
   var HalfViz = function (elt) {
     var dom = $(elt)
@@ -38,55 +37,7 @@
         _code.keydown(that.typing)
         _grabber.bind('mousedown', that.grabbed)
 
-        $(that.io).bind('clear', that.showGraph)
         return that
-      },
-
-      getDoc: function (e) {
-        $.getJSON('library/' + e.id + '.json', function (doc) {
-
-          // update the system parameters
-          if (doc.sys) {
-            sys.parameters(doc.sys)
-            that.dashboard.update()
-          }
-
-          // modify the graph in the particle system
-          _code.val(doc.src)
-          that.updateGraph()
-          that.resize()
-          _editing = false
-        })
-
-      },
-
-      showGraph: function () {
-        // var lorem = "; some example nodes\nhello {color:red, label:HELLO}\nworld {color:orange}\n\n; some edges\nhello -> world {color:yellow}\nfoo -> bar {weight:5}\nbar -> baz {weight:2}"
-
-        // _code.val(lorem).focus()
-        // $.address.value("")
-        that.updateGraph()
-        // that.resize()
-        // _editing = false
-      },
-
-      updateGraph: function (e) {
-        var lorem =
-          "; some example nodes\n" +
-          "hello {color:red, label:HELLO}\n" +
-          "world {color:orange}\n\n" +
-          "; some edges\nhello -> world {color:yellow}\n" +
-          "foo -> bar {weight:5}\n" +
-          "bar -> baz {weight:2}"
-
-        // var src_txt = _code.val()
-        // _code.val("1234").focus()
-        var network = parse(lorem)
-        $.each(network.nodes, function (nname, ndata) {
-          if (ndata.label === undefined) ndata.label = nname
-        })
-        sys.merge(network)
-        _updateTimeout = null
       },
 
       resize: function () {

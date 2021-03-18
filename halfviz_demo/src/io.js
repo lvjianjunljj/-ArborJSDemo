@@ -110,7 +110,7 @@
           
         case "new":
           that.hideExamples()
-          $(that).trigger({type:"clear"})
+          $(that).trigger({type:"update"})
           break
 
         case "save":
