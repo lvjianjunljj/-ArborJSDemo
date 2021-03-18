@@ -105,19 +105,21 @@
         that.update()
       },
 
-      updateDataFactory: function (e) {
-        var dataFactoryName = e.target[e.target.selectedIndex].value
-        if (!data.has(dataFactoryName)){
-          data.set(dataFactoryName,"; some example nodes\n" +
-          "hello {color:red, label:HELLO}\n" +
-          "world {color:orange}\n\n" +
-          "; some edges\n" +
-          "hello -> world {color:yellow}\n" +
-          "foo -> bar {weight:5}\n" +
-          "bar -> baz {weight:2}\n")
-        }
+      getGraphStr: function(dataFactoryName){
+        if (dataFactoryName === "a" || dataFactoryName === "c"){
+          return `
+          ; some example nodes
+          hello {color:red, label:HELLO}
+          world {color:orange}
 
-        lorem = `
+          ; some edges
+          hello -> world {color:yellow}
+          foo -> bar {weight:5}
+          bar -> baz {weight:2}
+          `
+
+        } else {
+          return `
           ; choices
           2 -> 6 {weight:2}
           2 -> 4 {color:yellow}
@@ -268,8 +270,16 @@
           114 {color:#ffe35f}
           116 {color:#b01700}
           117 {color:#95cde5}
-        `
-        var lorem = dataFactoryGraphStrs[dataFactoryName]
+          `
+        }
+      },
+
+      updateDataFactory: function (e) {
+        var dataFactoryName = e.target[e.target.selectedIndex].value
+        if (!dataFactoryGraphStrs.has(dataFactoryName)){
+          dataFactoryGraphStrs.set(dataFactoryName, that.getGraphStr(dataFactoryName))
+        }
+        var lorem = dataFactoryGraphStrs.get(dataFactoryName)
         // var src_txt = _code.val()
         // _code.val("1234").focus()
         var network = parse(lorem)

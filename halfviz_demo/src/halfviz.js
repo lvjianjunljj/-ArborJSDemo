@@ -18,7 +18,6 @@
     sys.screenPadding(20)
 
     var _ed = dom.find('#editor')
-    var _code = dom.find('textarea')
     var _canvas = dom.find('#viewport').get(0)
     var _grabber = dom.find('#grabber')
 
@@ -34,7 +33,6 @@
         that.resize()
         that.updateLayout(Math.max(1, $(window).width() - 340))
 
-        _code.keydown(that.typing)
         _grabber.bind('mousedown', that.grabbed)
 
         return that
@@ -83,20 +81,6 @@
       released: function (e) {
         $(window).unbind('mousemove', that.dragged)
         return false
-      },
-      typing: function (e) {
-        var c = e.keyCode
-        if ($.inArray(c, [37, 38, 39, 40, 16]) >= 0) {
-          return
-        }
-
-        if (!_editing) {
-          $.address.value("")
-        }
-        _editing = true
-
-        if (_updateTimeout) clearTimeout(_updateTimeout)
-        _updateTimeout = setTimeout(that.updateGraph, 900)
       }
     }
 

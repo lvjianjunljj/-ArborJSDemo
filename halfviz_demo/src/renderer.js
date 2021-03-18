@@ -1,20 +1,20 @@
 (function () {
-
-  Renderer = function (canvas, _code) {
+  Renderer = function (canvas, textarea) {
+    var nodeContents = new Map()
     var canvas = $(canvas).get(0)
     var ctx = canvas.getContext("2d");
     var gfx = arbor.Graphics(canvas)
     var particleSystem = null
-
+    
     var that = {
       init: function (system) {
         particleSystem = system
         particleSystem.screenSize(canvas.width, canvas.height)
         particleSystem.screenPadding(40)
-
+        
         that.initMouseHandling()
       },
-
+      
       redraw: function () {
         if (!particleSystem) return
 
@@ -113,17 +113,14 @@
             ctx.restore()
           }
         })
-
-
-
       },
+
       initMouseHandling: function () {
         // no-nonsense drag and drop (thanks springy.js)
         selected = null;
         nearest = null;
         var dragged = null;
         var oldmass = 1
-
         // set up a handler object that will initially listen for mousedowns then
         // for moves and mouseups while dragging
         var handler = {
@@ -139,6 +136,7 @@
 
             return false
           },
+
           dragged: function (e) {
             // var old_nearest = nearest && nearest.node._id
             var pos = $(canvas).offset();
@@ -151,11 +149,24 @@
             }
             return false
           },
+          
+          getNodeContent: function(nodeName) {
+            if (nodeName === '1' || nodeName === '2') {
+              return 'node 2 content'
+            } else {
+              return 'node content'
+            }
+          },
 
           dropped: function (e) {
             if (dragged === null || dragged.node === undefined) return
             if (dragged.node !== null) dragged.node.fixed = false
-            _code.val(dragged.node.name).focus()
+            var nodeName = dragged.node.name
+            if (!nodeContents.has(nodeName)) {
+              nodeContents.set(nodeName, handler.getNodeContent(nodeName))
+            }
+
+            textarea.val(nodeContents.get(nodeName)).focus()
             dragged.node.tempMass = 50
             dragged = null
             selected = null
@@ -164,9 +175,9 @@
             _mouseP = null
             return false
           }
+
         }
         $(canvas).mousedown(handler.clicked);
-
       }
 
     }
