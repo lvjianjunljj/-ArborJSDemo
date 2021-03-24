@@ -44,6 +44,7 @@
         dom.find('.toggle').click(that.toggleGravity)
         // dom.find('.update').click(that.updateGraph)
         dom.find('.datFactory').change(that.updateDataFactory)
+        dom.find('.testDate').change(that.updateDataFactory)
 
         $('.help').click(that.showHelp)
         dom.find('.about').click(that.showIntro)
@@ -105,8 +106,8 @@
         that.update()
       },
 
-      getGraphStr: function(dataFactoryName){
-        if (dataFactoryName === "a" || dataFactoryName === "c"){
+      getGraphStr: function (dataFactoryName) {
+        if (dataFactoryName === "a" || dataFactoryName === "c") {
           return `
           ; some example nodes
           hello {color:red, label:HELLO}
@@ -275,13 +276,14 @@
       },
 
       updateDataFactory: function (e) {
-        var dataFactoryName = e.target[e.target.selectedIndex].value
-        if (!dataFactoryGraphStrs.has(dataFactoryName)){
+        var testDate = dom.find("#testDate")[0].value
+        var dataFactoryName = dom.find("#datFactory")[0].value
+        alert(testDate)
+        alert(dataFactoryName)
+        if (!dataFactoryGraphStrs.has(dataFactoryName)) {
           dataFactoryGraphStrs.set(dataFactoryName, that.getGraphStr(dataFactoryName))
         }
         var lorem = dataFactoryGraphStrs.get(dataFactoryName)
-        // var src_txt = _code.val()
-        // _code.val("1234").focus()
         var network = parse(lorem)
         $.each(network.nodes, function (nname, ndata) {
           if (ndata.label === undefined) ndata.label = nname
